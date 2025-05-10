@@ -37,7 +37,7 @@ def predict(input_data: PredictionInput, _: str = Depends(check_auth)):
         return {"status": "EMPTY PREDICTOR"}
 
     try:
-        input_df = pd.DataFrame([input_data.dict()])
+        input_df = pd.DataFrame([input_data.model_dump()])
         print(input_df)
 
         prediction = predictor.predict(input_df)
