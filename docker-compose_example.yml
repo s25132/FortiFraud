@@ -1,0 +1,12 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./secrets/engineering-thesis.json:/run/keys/engineering-thesis.json:ro
+    environment:
+      GOOGLE_CREDENTIALS: /run/keys/engineering-thesis.json
+      AUTH_LOGIN: a
+      AUTH_PASSWORD: a
+      MODEL_ID: 705a0263
