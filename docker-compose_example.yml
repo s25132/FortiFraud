@@ -9,4 +9,5 @@ services:
       GOOGLE_CREDENTIALS: /run/keys/engineering-thesis.json
       AUTH_LOGIN: a
       AUTH_PASSWORD: a
-      MODEL_ID: aee1a8b8
+      MODEL_ID: 3f12e56b
+      TEST_DATA_ID: ca458f5c
