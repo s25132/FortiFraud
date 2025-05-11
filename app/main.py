@@ -1,13 +1,11 @@
-from fastapi import FastAPI, Depends, HTTPException, status
-from fastapi.security import HTTPBasic, HTTPBasicCredentials
+from fastapi import FastAPI, Depends, HTTPException
 from app.utils.setup import get_predictor
 from app.model.prediction_input import PredictionInput
-import os
-import secrets
+from app.security.basic_security import check_auth
+from app.validate.simple_validator import validate_non_empty_strings
 import pandas as pd
 
 app = FastAPI()
-security = HTTPBasic()
 predictor = None
 
 @app.on_event("startup")
@@ -20,30 +18,10 @@ def start_app():
 def read_root():
     return {"message": "Welcome to FortiFraud app!"}
 
-
-def check_auth(credentials: HTTPBasicCredentials = Depends(security)):
-    correct_username = secrets.compare_digest(credentials.username, os.getenv("AUTH_LOGIN"))
-    correct_password = secrets.compare_digest(credentials.password, os.getenv("AUTH_PASSWORD"))
-    if not (correct_username and correct_password):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Unauthorized",
-            headers={"WWW-Authenticate": "Basic"},
-        )
-
-def validate_non_empty_strings(data):
-    for field_name, value in data:
-        if isinstance(value, str) and value.strip() == "":
-            raise HTTPException(
-                status_code=400,
-                detail=f"Pole '{field_name}' nie może być puste."
-            )
-        
 @app.post("/predict")
 def predict(input_data: PredictionInput, _: str = Depends(check_auth)):
     if predictor is None:
         return {"status": "EMPTY PREDICTOR"}
-    
     
     validate_non_empty_strings(input_data)
 
