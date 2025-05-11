@@ -2,3 +2,7 @@ fastapi==0.110.0
 uvicorn[standard]==0.29.0
 google-services-account-tools==1.4.0
 autogluon.tabular[lightgbm,catboost,xgboost]==1.2.0
+sqlitecloud==0.0.83
+APScheduler==3.11.0
+wandb==0.19.11
+evidently==0.3.2.1

@@ -11,3 +11,10 @@ services:
       AUTH_PASSWORD: a
       MODEL_ID: 3f12e56b
       TEST_DATA_ID: ca458f5c
+      SQL_CONNESCTION: sqlitecloud://crauyqqhnz.g6.sqlite.cloud:8860/fraud_database?apikey=key
+      COLLECT_CLAIMS: true
+      COLLECT_METRICS: true
+      MAX_INSERT_CLAIM_WORKERS: 20
+      CLAIMS_LIMIT: 3000
+      METRICS_SCHEDULER_INTERVAL_MINUTES: 60
+      WANDB_API_KEY: a
